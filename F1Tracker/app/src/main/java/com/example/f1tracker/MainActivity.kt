@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                 Surface {
                     val navController = rememberNavController()
                     AppNavGraph(navController = navController)
-                    String flag = "CTF{is_worth_checking_the_app";
+                    val flag = "CTF{is_worth_checking_the_app"
                 }
             }
         }
