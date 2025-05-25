@@ -11,6 +11,28 @@ object F1Repository {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(OpenF1Api::class.java)
+    object FlagUtil {
+        fun part1() = "CTF{"
+        fun part2() = "split_"
+        fun part3() = "flag}"
+
+        fun getFlag() = part1() + part2() + part3()
+    }
+    fun getDriverData(): String {
+        // Dummy method to keep the class realistic
+        return "Fetching driver data..."
+    }
+
+    // Hidden flag parts
+    private fun calculateSpeed() = "CTF{"
+    private fun getTrackTime() = "speed_"
+    private fun getTelemetry() = "timing_key}"
+
+    // The real flag method
+    fun revealTelemetryData(): String {
+        return calculateSpeed() + getTrackTime() + getTelemetry()
+    }
+
 
     suspend fun getDrivers(): List<DriverDto> {
         return api.getDrivers()
