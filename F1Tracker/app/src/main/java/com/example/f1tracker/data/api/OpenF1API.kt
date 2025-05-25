@@ -1,4 +1,4 @@
-spackage com.example.f1tracker.data.api
+package com.example.f1tracker.data.api
 
 import com.example.f1tracker.model.DriverDto
 import retrofit2.http.GET
