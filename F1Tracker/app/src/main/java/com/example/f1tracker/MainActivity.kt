@@ -4,14 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
 import com.example.f1tracker.navigation.AppNavGraph
 import com.example.f1tracker.ui.theme.F1TrackerTheme
@@ -21,10 +18,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            F1TrackerTheme {
+            var isDarkTheme by rememberSaveable { mutableStateOf(true) }
+            F1TrackerTheme(darkTheme = isDarkTheme) {
                 Surface {
                     val navController = rememberNavController()
-                    AppNavGraph(navController = navController)
+                    AppNavGraph(
+                        navController = navController,
+                        isDarkTheme = isDarkTheme,
+                        onToggleTheme = { isDarkTheme = !isDarkTheme }
+                    )
                 }
             }
         }

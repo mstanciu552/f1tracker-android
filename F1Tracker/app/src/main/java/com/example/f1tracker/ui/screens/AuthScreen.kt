@@ -4,6 +4,8 @@ package f1tracker.ui.screens
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,7 +30,20 @@ fun AuthScreen(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(if (isLogin) "Login" else "Register") })
+            TopAppBar(
+                title = { Text(if (isLogin) "Login" else "Register") },
+                actions = {
+                    IconButton(onClick = {
+                        navController.navigate("settings")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
+                }
+            )
         }
     ) { padding ->
         Column(

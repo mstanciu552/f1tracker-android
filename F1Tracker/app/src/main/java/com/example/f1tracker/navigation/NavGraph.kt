@@ -6,10 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.f1tracker.ui.screens.ScoreBoard
 import com.example.f1tracker.ui.screens.DriverDetailsScreen
+import com.example.f1tracker.ui.screens.SettingsScreen
 import f1tracker.ui.screens.AuthScreen
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
+fun AppNavGraph(navController: NavHostController, isDarkTheme: Boolean, onToggleTheme: () -> Unit) {
     NavHost(navController = navController, startDestination = "auth") {
         composable("home") {
             ScoreBoard(navController = navController)
@@ -22,6 +23,9 @@ fun AppNavGraph(navController: NavHostController) {
         }
         composable("auth") {
             AuthScreen(navController = navController)
+        }
+        composable("settings") {
+            SettingsScreen(isDarkTheme = isDarkTheme, onToggleTheme = onToggleTheme, navController = navController)
         }
     }
 }

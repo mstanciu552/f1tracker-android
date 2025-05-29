@@ -3,10 +3,13 @@ package com.example.f1tracker.ui.screens
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
@@ -49,24 +52,24 @@ fun ScoreBoard(navController: NavController) {
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     val mockScores = mapOf(
-        "PIA" to 131, // Oscar Piastri
-        "NOR" to 115, // Lando Norris
-        "VER" to 99,  // Max Verstappen
-        "RUS" to 93,  // George Russell
-        "LEC" to 53,  // Charles Leclerc
+        "PIA" to 161, // Oscar Piastri
+        "NOR" to 158, // Lando Norris
+        "VER" to 136, // Max Verstappen
+        "RUS" to 99,  // George Russell
+        "LEC" to 79,  // Charles Leclerc
+        "HAM" to 63,  // Lewis Hamilton
         "ANT" to 48,  // Andrea Kimi Antonelli
-        "HAM" to 41,  // Lewis Hamilton
-        "ALB" to 30,  // Alex Albon
-        "OCO" to 14,  // Esteban Ocon
+        "ALB" to 42,  // Alex Albon
+        "OCO" to 20,  // Esteban Ocon
+        "HAD" to 15,  // Isack Hadjar
         "STR" to 14,  // Lance Stroll
-        "TSU" to 9,   // Yuki Tsunoda
+        "SAI" to 12,  // Carlos Sainz
+        "TSU" to 10,  // Yuki Tsunoda
         "GAS" to 7,   // Pierre Gasly
-        "SAI" to 7,   // Carlos Sainz
         "HUL" to 6,   // Nico Hulkenberg
         "BEA" to 6,   // Oliver Bearman
-        "HAD" to 5,   // Isack Hadjar
+        "LAW" to 4,   // Liam Lawson
         "ALO" to 0,   // Fernando Alonso
-        "LAW" to 0,   // Liam Lawson
         "DOO" to 0,   // Jack Doohan
         "BOR" to 0    // Gabriel Bortoleto
     )
@@ -90,6 +93,15 @@ fun ScoreBoard(navController: NavController) {
             TopAppBar(
                 title = { Text("F1 Season 2025 Tracker") },
                 actions = {
+                    IconButton(onClick = {
+                        navController.navigate("settings")
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                     TextButton(onClick = {
                         navController.navigate("auth") {
                             popUpTo("home") { inclusive = true }
@@ -153,7 +165,11 @@ fun ScoreboardTable(drivers: List<Driver>, navController: NavController) {
     // Table Body
     LazyColumn {
         itemsIndexed(drivers) { index, driver ->
-            val backgroundColor = if (index % 2 == 0) Color(0xFFF5F5F5) else Color.White
+            val backgroundColor: Color = if (isSystemInDarkTheme()) {
+                if (index % 2 == 0) Color(0xFFF5F5F5) else Color.White
+            } else {
+                if (index % 2 == 0) Color(0xFF121318) else Color.Black
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
